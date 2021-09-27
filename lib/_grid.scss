@@ -1,6 +1,13 @@
 @use "sass:math";
 
 $grid-columns: 12; // most popular
+$grid-gaps: (
+  "0": 0,
+  "1": 10px,
+  "2": 20px,
+  "3": 30px,
+);
+$layout-values: flex-start, flex-end, center, space-between, space-around;
 
 // base layout classes
 .container {
@@ -14,6 +21,25 @@ $grid-columns: 12; // most popular
 .row {
   display: flex;
   flex-flow: row wrap;
+}
+
+// grid gaps
+@each $k, $v in $grid-gaps {
+  .gap-#{$k} > * {
+    padding: $v;
+  }
+  .gap-#{$k} {
+    // padding 20px을 갖는다면 margin 20px을 삭제함
+    margin-left: -$v;
+    margin-right: -$v;
+  }
+}
+
+//justify content classes
+@each $v in $layout-values {
+  .justify-#{$v} {
+    justify-content: $v;
+  }
 }
 
 // col classes
